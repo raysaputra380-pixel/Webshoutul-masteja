@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yellow Dark Player</title>
+    <style>
+        /* CSS: Tema Hitam & Kuning */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #121212; /* Hitam sangat gelap */
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .player-container {
+            background: #1e1e1e; /* Hitam sedikit terang */
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #333;
+        }
+
+        h2 { 
+            text-align: center; 
+            color: #ffcc00; /* Kuning */
+            margin-top: 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Styling Input File */
+        .upload-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #ffcc00;
+            color: #000;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #e6b800;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Playlist */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+
+        /* Custom Scrollbar */
+        ul::-webkit-scrollbar {
+            width: 5px;
+        }
+        ul::-webkit-scrollbar-thumb {
+            background: #ffcc00;
+            border-radius: 10px;
+        }
+
+        li {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: #282828;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+            border-left: 0px solid #ffcc00;
+            font-size: 0.9em;
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        li:hover {
+            background: #333;
+            color: #fff;
+        }
+
+        li.active {
+            background: #333;
+            border-left: 5px solid #ffcc00;
+            color: #ffcc00;
+            font-weight: bold;
+        }
+
+        /* Controls */
+        .controls {
+            border-top: 2px solid #333;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        #status {
+            font-size: 0.8em;
+            color: #ffcc00;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        audio { 
+            width: 100%; 
+            filter: invert(100%) hue-rotate(180deg) brightness(1.5); /* Membuat kontrol audio menyesuaikan tema gelap */
+        }
+    </style>
+</head>
+<body>
+
+<div class="player-container">
+    <h2>Music Player</h2>
+    
+    <label class="upload-btn">
+        + TAMBAH LAGU LOKAL
+        <input type="file" id="file-input" accept="audio/*" multiple>
+    </label>
+       <ul id="playlist">
+    <li data-src="suara1.mp3" onclick="playSong(this, 'Judul Lagu')">Alarm1</li>
+</ul>
+<ul id="playlist">
+    <li data-src="suara2.mp3" onclick="playSong(this, 'Judul Lagu')">lagu 2</li>
+</ul>
+
+
+
+    <ul id="playlist">
+        <li style="text-align:center; cursor:default;">Belum ada lagu</li>
+    </ul>
+
+    <div class="controls">
+        <p id="status">Silahkan pilih lagu...</p>
+        <audio id="audio-player" controls></audio>
+    </div>
+</div>
+
+<script>
+    const fileInput = document.getElementById('file-input');
+    const playlist = document.getElementById('playlist');
+    const audioPlayer = document.getElementById('audio-player');
+    const statusText = document.getElementById('status');
+
+    fileInput.addEventListener('change', function(e) {
+        const files = e.target.files;
+        if (files.length > 0) {
+            playlist.innerHTML = ''; // Kosongkan placeholder jika ada lagu
+        }
+        
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileURL = URL.createObjectURL(file);
+            
+            const li = document.createElement('li');
+            li.innerText = file.name;
+            li.setAttribute('data-src', fileURL);
+            
+            li.onclick = function() {
+                playSong(li, file.name);
+            };
+            
+            playlist.appendChild(li);
+        }
+    });
+
+    function playSong(element, name) {
+        // Reset status aktif
+        document.querySelectorAll('li').forEach(item => item.classList.remove('active'));
+        
+        // Aktifkan lagu yang diklik
+        element.classList.add('active');
+        
+        // Putar audio
+        audioPlayer.src = element.getAttribute('data-src');
+        audioPlayer.play();
+        
+        // Update teks status
+        statusText.innerText = "Playing: " + name;
+    }
+
+    // Auto-play lagu berikutnya
+    audioPlayer.addEventListener('ended', function() {
+        const currentActive = document.querySelector('li.active');
+        if (currentActive && currentActive.nextElementSibling) {
+            currentActive.nextElementSibling.click();
+        } else {
+            statusText.innerText = "Playlist selesai";
+        }
+    });
+</script>
+
+</body>
+</html>

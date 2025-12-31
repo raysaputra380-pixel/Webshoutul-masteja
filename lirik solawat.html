@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arsip Lirik Sholawat Lengkap - Dark Gold</title>
+    <style>
+        :root {
+            --primary: #FFD700;
+            --bg-dark: #0a0a0a;
+            --card-bg: #161616;
+            --text-gray: #b0b0b0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+        body { background-color: var(--bg-dark); color: #fff; line-height: 1.7; scroll-behavior: smooth; }
+
+        /* Navigation */
+        nav {
+            background: rgba(10, 10, 10, 0.95);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary);
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        nav h1 { color: var(--primary); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px; }
+
+        .search-box {
+            width: 100%;
+            max-width: 500px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            border: 1px solid #333;
+            background: #222;
+            color: white;
+            outline: none;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .search-box:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(255, 215, 0, 0.3); }
+
+        /* Layout */
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+
+        .lirik-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            margin-bottom: 40px;
+            padding: 30px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .lirik-item h2 { color: var(--primary); margin-bottom: 25px; font-size: 1.8rem; text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
+
+        .teks-arab {
+            font-size: 2.2rem;
+            text-align: right;
+            direction: rtl;
+            line-height: 2.5;
+            margin-bottom: 25px;
+            font-family: 'Traditional Arabic', serif;
+            color: #ffffff;
+        }
+
+        .teks-latin {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 15px;
+            font-size: 1rem;
+            border-left: 2px solid #333;
+            padding-left: 15px;
+        }
+
+        .terjemah {
+            color: var(--text-gray);
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .badge { background: var(--primary); color: black; padding: 2px 10px; border-radius: 5px; font-size: 0.7rem; font-weight: bold; vertical-align: middle; margin-left: 10px; }
+
+        /* Footer */
+        footer { text-align: center; padding: 50px; color: var(--text-gray); font-size: 0.8rem; background: #050505; border-top: 1px solid #222; }
+
+        @media (max-width: 600px) { 
+            .teks-arab { font-size: 1.8rem; }
+            .lirik-item { padding: 20px; }
+        }
+        /* --- LOADING SCREEN STYLES --- */
+#loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark); /* Latar Hitam */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+/* Animasi Rebana */
+.rebana-container {
+    width: 100px;
+    height: 100px;
+    border: 8px solid var(--primary); /* Warna Kuning */
+    border-radius: 50%;
+    position: relative;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: hit-rebana 0.4s infinite alternate;
+}
+
+.rebana-inner {
+    width: 80%;
+    height: 80%;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    opacity: 0.5;
+}
+
+/* Animasi Teks Bergantian */
+.loading-text {
+    color: var(--primary);
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 30px;
+}
+
+.loading-text::after {
+    content: "DUNG";
+    animation: text-switch 2s infinite;
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 200px;
+    height: 4px;
+    background: #222;
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 100%;
+    height: 100%;
+    background: var(--primary);
+    animation: loading-fill 2s infinite ease-in-out;
+}
+
+/* KEYFRAMES ANIMASI */
+@keyframes hit-rebana {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); box-shadow: 0 0 30px rgba(255, 215, 0, 0.4); }
+}
+
+@keyframes text-switch {
+    0%, 32% { content: "DUNG"; }
+    33%, 65% { content: "TAKTAK"; }
+    66%, 100% { content: "TAKTAK ADUN"; }
+}
+
+@keyframes loading-fill {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+    </style>
+</head>
+<body>
+  <div id="loader-wrapper">
+    <div class="rebana-container">
+        <div class="rebana-inner"></div>
+    </div>
+    <div class="loading-text"></div>
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+</div>
+
+
+<nav>
+    <h1>Shoutul Masteja</h1>
+    <input type="text" id="searchInput" class="search-box" placeholder="Teangan Judul atawa Lirikna....." onkeyup="filterLirik()">
+</nav>
+
+<div class="container" id="lirikContainer">
+
+    <div class="lirik-item">
+        <h2>Busyrolana <span class="badge">POPULER</span></h2>
+        <div class="teks-arab">
+            ​بُشْرَى لَنَا نِلْنَا الْمُنَى*  زَالَ الْعَنَا وَافَى الْهَنَ<br>
+وَالدَّهْرُ أَنْجَزَ وَعْدَهُ ** وَالْبِشْرُ أَضْحَى مُعْلَنَا<br>
+​يَا نَفْسُ طِيْبِي بِاللِّقَا ** يَا عَيْنُ قَرِّي أَعْيُنَا<br>
+هَذَا جَمَالُ الْمُصْطَفَى ** أَنْوَارُهُ لَاحَتْ لَنَا<br>
+​يَا طَيْبَةُ مَاذَا نَقُوْل ** وَفِيْكِ قَدْ حَلَّ الرَّسُوْل<br>
+وَكُلُّنَا نَرْجُوْ الْوُصُوْل ** لِمُحَمَّدٍ نَبِيِّنَا<br>
+​يَا رَوْضَةَ الْهَادِى الشَّفِيْع ** وَصَاحِبَيْهِ وَالْبَقِيْع<br>
+أُنْظُرْ إِلَيْنَا بِالرَّبِيْع ** وَارْحَمْ إِلَهِي جَمْعَنَا<br>
+​صَلَاةُ اللهِ مَا عَنَتْ ** طُيُوْرُ الْيُمْنِ فِي الْبَنَا<br>
+عَلَى الْمُصْطَفَى خَيْرِ الْوَرَى ** وَالْآلِ كُلِّ الْمُجْتَبَى
+        </div>
+        <div class="teks-latin">
+            Busyro lana nilnal muna
+Zalal 'ana wa fal hana<br>
+Waddahru anjaza wa'dahu
+Wal bishru adha mu'lana<br>
+​Ya nafsu thibi billigo
+Ya 'ainu qorri a'yuna<br>
+Hadza jamalul Mushthofa
+Anwaruhu lahat lana<br>
+​Ya Thoibatu madza naqul
+Wa fiki qod hallar Rosul<br>
+Wa kulluna narjul wushul
+Li Muhammadin Nabiyyina<br>
+​Ya Roudhotal Hadisy-Syafi'
+Wa shohibaihi wal Baqi<br>
+Unzhur ilaina bir-robi'
+Warham ilahi jam'ana<br>
+​Sholatullahi ma 'anat
+Thuyurul yumni fil bana<br>
+'Alal Mushthofa khoiril waro
+Wal āli kullil mujtaba
+        </div>
+    </div>
+    <div class="lirik-item">
+        <h2>Qomarun <span class="badge">POPULER</span></h2>
+        <div class="teks-arab">
+          
+قَمَرٌ قَمَرٌ قَمَرٌ سِيدْنَا النِّبِى قَمَرٌ<br>
+وَجَمِيلْ وَجَمِيلْ وَجَمِيلْ سِيدْنَا النِّبْى وَجَمِيلْ<br>
+وَكَفُّ الْمُصْطًفَى كَالْوَرْدِي نَادِى اللهُ اللهُ<br>
+وَعِطْرُهَ يَبْقَى اِذَا مَسَّتْ أَيَادِي اللهُ اللهُ<br>
+وَعَمَّ نَوَالُهَا كُلَّ الْعَبَادِ<br>
+حَبِيْبُ اللهِ يَاخَيْرَ الْبَرَايَا<br>
+وَلَا ظِلٌّ لَهُ بَلْ كَانَ نُوْرًا اللهُ اللهُ<br>
+تَنَالَ الشَّمْسَ مِنْهُ وَالْبُدُوْرَ اللهُ اللهُ<br>
+وَلَمْ يَكُوْنِ الْهُدَى لَوْلَا ظُهُوْرَهْ<br>
+وَكُلُّ الْكَوْنِ أَنَارَ بُنُوْرِطَهَ
+</div>
+        </div>
+            <div class="lirik-item">
+        <h2>Ya asyiqol mustofa <span class="badge">POPULER</span></h2>
+        <div class="teks-arab">
+          يَاعَاشِقَ الْمُصْطَفٰی ، اَبْشِرْ بِنَيْلِ الْمُنٰی<span class="badge">2X</span>
+        <br>قَدْرَاقَ كَأْسُ الصَّفَا ، وَطَابَ وَفْدُ الْهَنَا<span class="badge">2X</span><br>
+        <span class="badge">(balik deui ka reff)</span><br>
+        نُوْرُالْجَمَالِ بَدَا ، مِنْ وَجْهِ شَمْسِ الْهُدٰی<span class="badge">3X</span><br>
+        مَنْ فَضْلُهُ عَمَّنَا ، عَمَّنَا ، عَمَّنَا<br>
+        وَطَابَ وَفْدُ الْهَنَا<br>
+        قَدْ رَاقَ كَأْسُ الصَّفَا ، وَطَابَ وَفْدُ الْهَنَا<br>
+        طٰهَ الَّذِی بِاللِّقَا ، قَدْ فَازَ لَمَّا ارْتَقٰی<span class="badge">3X</span><br>
+        دُوْنَ الْوَرٰی رَبُّنَا ، رَبُّنَا ، رَبُّنَا<br>
+        وَطَابَ وَفْدُ الْهَنَا<br>
+        قَدْ رَاقَ كَأْسُ الصَّفَا ، وَطَابَ وَفْدُالهنا 
+        </div>
+        </div>
+          
+    <div class="lirik-item">
+        <h2>Sholawat Jibril <span class="badge">MUSTAJAB</span></h2>
+        <div class="teks-arab">صَلَّى اللهُ عَلَى مُحَمَّد
+        <br>​أَنْتَ شَمْسٌ أَنْتَ بَدْرٌ
+أَنْتَ نُوْرٌ فَوْقَ نُوْرِ
+أَنْتَ إِكْسِيْرٌ وَغَالِي
+أَنْتَ مِصْبَاحُ الصُّدُوْرِ<br>
+​يَا حَبِيْبِي يَا مُحَمَّد
+يَا عَرُوْسَ الْخَافِقَيْنِ
+يَا مُؤَيَّدُ يَا مُمَجَّد
+يَا إِمَامَ الْقِبْلَتَيْنِ
+​مَنْ رَأَى وَجْهَكَ يَسْعَد
+يَا كَرِيْمَ الْوَالِدَيْنِ
+حَوْضُكَ الصَّافِي الْمُبَرَّد
+وِرْدُنَا يَوْمَ النُّشُوْرِ</div>
+        <div class="teks-latin">Shallallahu 'Ala Muhammad</div>
+        <div class="terjemah">"Semoga Allah memberikan rahmat-Nya kepada Nabi Muhammad."</div>
+    </div>
+
+    <div class="lirik-item">
+        <h2>Nasabe Kanjeng Nabi <span class="badge">EDUKASI</span></h2>
+        <div class="teks-latin">
+            Kanjeng Nabi Muhammad, lahir ono ing Mekkah<br>
+            Dinten Isnen rolas Mulud, tahun Gajah<br>
+            Ibune Siti Aminah, Ramane Sayyid Abdullah<br>
+            Garwane Siti Khodijah, ugo Siti Aisyah<br><br>
+            Sayyid Ibrahim, Sayyid Qosim, Sayyid Abdullah<br>
+            Siti Zainab, Siti Ruqoyyah, Ummu Kultsum, Siti Fatimah
+        </div>
+    </div>
+
+    <div class="lirik-item">
+        <h2>Alamate Anak Sholeh <span class="badge">VIRAL</span></h2>
+        <div class="teks-latin">
+            <strong>(Awal)</strong><br>
+            Alamate anak sholeh iku papat<br>
+            Ba'dane mukmin anut ing syari'at<br>
+            Kang dingin lisane alus ngendikane<br>
+            Kapindo mulyo'aken ing wong tuwane<br><br>
+            <div class="teks-arab">
+              <strong>(Reff)</strong><br>
+              يا رسول الله سلام عليك
+يا رفيع الشان والدرج
+عطفة يا جيرة العلم
+يا أهيل الجود والكرم
+            </div>
+            <strong>(Verse)</strong><br>
+            Kaping telu asih ing bocah cilik-cilik<br>
+            Ugo marang sedulur gawe becik<br>
+            Kaping papat ngamalaken ing ilmune<br>
+            dadi tanggung jawab ora ngawulane 2×
+            <strong>(Balik deui ka reff)</strong>
+            <div class="teks-latin">Iku saking ulama aweh pitutur
+Alamate bocah dadi jujur<br>
+Iku saking ulama aweh pitutur
+Alamate bocah dadi jujur<br>Muga-muga kita bisa ngelampahi
+Donya akhirat nemuhi bilahi<br>
+Muga-muga kita bisa ngelampahi
+Donya akhirat nemui bilahi</div>
+        </div>
+    </div>
+
+    <div class="lirik-item">
+        <h2>Wahdana</h2>
+        <div class="teks-arab">
+            وَاحْدَانَة دَانَة وَاحْدَانَة دَانَة وَاحْدَانَة دَانَ<br>
+            وَاحْدَانَة وَاحْدَانَة وَاحْدَانَة (وَاحْدَانَة دَانَ)<br>
+            عَادِتْ عَلَيْنَا لَيَالِي جَمِيْلَه<br>
+            بَيْنَ الْقَمَر وَ وَالْخُضَرْ وَالْحُدُوْدِ الْاَسْلِيَة<br>
+            وَ الْغامِ وَالْحَان عَذْبِه جَمِيْلَه<br>
+            شَرَّتْ فُؤَادِي وَاَمْسَی بِهَا فرْحَانَ
+        </div>
+
+    </div>
+
+    <div class="lirik-item">
+        <h2>Rahmatun Lil'Alameen</h2>
+        <div class="teks-arab">
+            يَا مَنْ صَلَّيْتَ بِكُلِّ الْأَنْبِيَاء ، يَا مَنْ فِي قَلْبِكَ رَحْمَةٌ لِلنَّاسِ<br>
+            يَا مَنْ أَلَّفْتَ قُلُوبًا بِالْإِسْلَامِ ، يَا حَبِيبِي يَا شَفِيعِي يَا رَسُولَ اللهِ<br>
+            بِأَبِي أَنْتَ وَأُمِّي ، يَا خَيْرَ خَلْقِ اللهِ
+        </div>
+        <div class="teks-latin">
+            Ya man shollaita bikullil anbiya, Ya man fii qolbika rohmatun linnaas<br>
+            Ya man allafta quluban bil Islam, Ya habibi ya syafii'i ya Rasulallah<br>
+            Bi abi anta wa ummi, Ya khoiro kholqillah
+        </div>
+    </div>
+
+    <div class="lirik-item">
+        <h2>Ya khoiro hadi</h2>
+        <div class="teks-arab">
+            يَا خَيْرَ هَادِی لِلْأَنَامِ تَسَاما * عَطْفاً عَلَی مَنْ ذَابَ فِيكَ غَرَاماً<br>
+            أَنْتَ الَّذِي شَرَّفْتَ کُلَّ مُشَرَّفٍ * وَمَنَحْتَنَا يَا ذَی النَّدَی يَا إمَاماً<br>
+            يَا سَيِّدَ الكَوْنَيْنِ يَا عَلَمَ الهُدَی * يَا مَنْ أَتَی لِلْمُرْسَلِينَ خِتَاماً
+        </div>
+
+    </div>
+
+    <div class="lirik-item">
+        <h2>Thohirul Qolbi</h2>
+        <div class="teks-arab">
+            طَاهِرُ الْقَلْبِ نَقِيُّ ، ذَاكِرُ لِلّٰهِ مُعِينُ<br>
+            وَلَهُ خُلُقٌ زَكِيُّ ، جَاءَنَا بِالْحَقِّ الْمُبِينِ
+        </div>
+        <div class="teks-latin">
+            Thohirul qolbi naqiyyu, Dzakirun lillahi mu'inu<br>
+            Wa lahu khuluqun zakiyyu, Ja'ana bil haqqil mubin
+        </div>
+    </div>
+
+    <div class="lirik-item">
+        <h2>Sholawat Nariyah <span class="badge">AMPUH</span></h2>
+        <div class="teks-arab" style="font-size: 1.8rem;">
+            أللَّهُمَّ صَلِّ صَلَاةً كَامِلَةً وَسَلِّمْ سَلَامًا تَامًّا عَلَى سَيِّدِنَا مُحَمَّدٍ الَّذِي تَنْحَلُّ بِهِ الْعُقَدُ وَتَنْفَرِجُ بِهِ الْكُرَبُ وَتُقْضَى بِهِ الْحَوَائِجُ وَتُنَالُ بِهِ الرَّغَائِبُ وَحُسْنُ الْخَوَاتِمِ وَيُسْتَسْقَى الْغَمَامُ بِوَجْهِهِ الْكَرِيْمِ وَعَلَى آلِهِ وَصَحْبِهِ فِي كُلِّ لَمْحَةٍ وَنَفَسٍ بِعَدَدِ كُلِّ مَعْلُوْمٍ لَكَ
+        </div>
+    </div>
+    
+    <div class="lirik-item">
+        <h2>Sholawatullahitagsya</h2>
+        <div class="teks-arab">
+          يَا جَمَالًا قَدْ تَجَلَّى , بِالْمَشَارِقْ وَاْلمَغَارِبْ
+          <div class="teks-latin">
+            Ya jamaalan qod tajalla, bil masyriq wal maghoorib
+          </div>
+<div class="teks-arab">
+  مَرْحَبًا اَهْلاً وَسَهْلاً , بِكَ يَا خَيْرَ اْلحَبَائِبْ
+</div>
+<div class="teks-latin">
+  Marhaban Ahlan wa Sahlan, bika Ya Khoirol habaa’ib
+</div>
+<div class="teks-arab">
+  ”
+
+صَلَوَاتُ اللهِ تَغْشَى , اَشْرَفَ الرُّسْلِ اْلاَطَائِبْ
+</div>
+<div class="teks-latin">
+  Sholawaatullohi Taghsyaa, asyrofar ruslil athoo’ib
+</div>
+<div class="teks-arab">
+  وَتَعُمُّ اْلآلَ جَمْعًا , مَا بَدَا نُورُ الْكَوَاكِبْ
+</div>
+<div class="teks-latin">
+  Wa ta’ummul aala jam’an, maa badaa nuurul kawaakib
+</div>
+<div class="teks-arab">
+  اَقْبَلَ السَّعْدُ عَلَيْنَا , وَالْهَنَا مِنْ جَانِبْ
+</div>
+<div class="teks-latin">
+  Aqbalas sa’du ‘alainaa, walhanaa min kulli jaanib
+</div>
+<div class="teks-arab">
+  فَلَنَا اْلبُشْرَى بِسَعْدٍ , جَآءَنَا مِنْ خَيْرِ وَاهِبْ
+</div>
+<div class="teks-latin">
+  Falanaal busyroo bisa’din, jaa-anaa min khoiri waahib
+</div>
+</div>
+</div>
+    <div class="lirik-item">
+        <h2>Hayul hadi</h2>
+        <div class="teks-arab">
+          حَيُّوا الهَادِی بِأَجمَل ذِکرَی<br>
+          صَلُّوا مَعَانَا يَاحُضَّار<br>
+          فَهُوَ عِمَادِی يَومَ المَعَادِ<br>
+          نَبِيُّنَا طَهَ المُختَار<br>
+          حَيُّوا الهَادِیی<br>
+          هَذَا الَّذِى سَرَى لَيْلًا<br>
+          ثُمَّ دَانَا فَتَدَلَّى
+          <span class="badge">2X</span><br>
+          عَلَى الْعَرْشِ رَقَّى الْجَمِيْلْ<br>
+          وَكَلَّمَهُ رَقَّى الْجَلِيْلْ<span class="badge">2X</span>
+</div>
+
+</div>
+    <div class="lirik-item">
+        <h2>Ya robbi salimna</h2>
+        <div class="teks-arab">
+          
+رَبِّ يَا رَبِّ يَا رَبِّ سَلِّمْنَا<br>
+كُلُّ الْهِدَايَة مِنْكَ يَا اللَّهُ<br>
+حَبْلٌ لِتَقْوى إِلَيْكَ يَا رَبِّي<br>
+کُلُّ الزَّمَانِ<br>
+وَاخْتِمْ لَنَا فِي كُلِّ حَالِنَا<br>
+مَمْلُوأً بِالْحِكْمَةِ مَمْلُوأً بِالْإِيمَانْ<br>
+رَبِّ يَا رَبِّ يَا رَبِّ سَلِّمْنَا
+</div>
+</div>
+    <div class="lirik-item">
+        <h2>Adinu lana</h2>
+        <div class="teks-arab">
+          اَلدِّيْنُ لَنَا وَالْحَقًّ لَنَا، وَالْعدْلُ لَنَا والْكُلُّ لَنَا<br>
+          اَضْحَى الْأِسْلَامُ لَنَا دِيْنًا، وَجَمِيْعُ الْكَوْنِ لَنَا وَطَنَا<br>
+          <span class="badge">balik deui ja reff</span><br>
+          تَوْحِيْدُ اللهُ لَنَا نُوْرٌ، أَعْدَدْنَا الرُّوْحُ لَهُ سَكَنًا<br>
+          هُوَ أَوَّلُ بَيْتٍ نَحْفَظُهُ، بِجَيَاتِ الُّوْحِ وَيَحْفَظُنَا<br>
+          <span class="badge">balik deui ka reff</span><br>
+          عَلَمُ الْأِسْلَامِ عَلَى الْأَيَّامْ، شِعَارُ الْمَجْدِ لِمِلَّتِنَا<br>
+          اَلْكَوْنُ يَزُوْلُ وَلَا تُمْحَى، بِالدّهْرِ صَحَائِفُ سُؤْدَدِنَا<br>
+          <span class="badge">balik deui ka reff</span>
+          </div>
+          </div>
+        
+          
+<footer>
+    <p>Database Sholawat Versi 3.0 barudak shoutul masteja - Update 2025</p>
+    <p>dung tak tak adun muid </p>
+    <p style="margin-top: 10px; color: var(--primary);">Shollu 'alan Nabi Muhammad!</p>
+</footer>
+
+<script>
+  window.addEventListener("load", function() {
+    const loader = document.getElementById("loader-wrapper");
+    // Menunggu 2.5 detik agar animasi DUNG TAKTAK terlihat dulu
+    setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => {
+            loader.style.display = "none";
+        }, 500);
+    }, 5000); 
+});
+
+    function filterLirik() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let items = document.getElementsByClassName('lirik-item');
+        
+        for (let i = 0; i < items.length; i++) {
+            let title = items[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+            let body = items[i].innerText.toLowerCase();
+            
+            if (title.includes(input) || body.includes(input)) {
+                items[i].style.display = "block";
+            } else {
+                items[i].style.display = "none";
+            }
+        }
+    }
+</script>
+
+</body>
+</html>

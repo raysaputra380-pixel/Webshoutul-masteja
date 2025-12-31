@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beranda Musik & Perkusi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Pengaturan Dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212; /* Hitam pekat */
+            color: #FFD700; /* Kuning emas */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Menggunakan min-height agar aman saat konten bertambah */
+            overflow-x: hidden;
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            max-width: 1000px;
+        }
+
+        .badge {
+            display: block;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #FFD700;
+            border-bottom: 2px solid #FFD700;
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Grouping Icon */
+        .menu-wrapper {
+            display: flex;
+            gap: 30px; /* Jarak antar kartu disesuaikan */
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Desain Kartu Menu */
+        .menu-card {
+            text-decoration: none;
+            color: #FFD700;
+            background: #1e1e1e;
+            padding: 30px;
+            border-radius: 15px;
+            width: 180px; /* Sedikit dikecilkan agar muat 3 kartu dengan rapi */
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+            background: #FFD700;
+            color: #121212;
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .menu-card i {
+            font-size: 3.5rem; /* Ukuran disesuaikan sedikit */
+            margin-bottom: 15px;
+        }
+
+        .menu-card p {
+            font-size: 1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        /* Efek Responsif */
+        @media (max-width: 650px) {
+            .menu-wrapper {
+                gap: 15px;
+            }
+            .menu-card {
+                width: 140px;
+                padding: 20px;
+            }
+            .menu-card i {
+                font-size: 2.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="badge">selamat datang</span>
+        <h1>SHOUTUL MASTEJA</h1>
+        
+        <div class="menu-wrapper">
+            <a href="lirik solawat.html" class="menu-card">
+                <i class="fas fa-music"></i>
+                <p>Lirik Lagu</p>
+            </a>
+
+
+
+            <a href="Rumus tabuhan.html" class="menu-card">
+                <i class="fas fa-drum"></i>
+                <p>Rumus Tabuhan</p>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

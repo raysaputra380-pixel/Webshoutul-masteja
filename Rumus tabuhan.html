@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notasi Cimpring Elegan</title>
+    <style>
+        /* Dasar Halaman */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: radial-gradient(circle, #1a1a1a 0%, #0a0a0a 100%);
+            font-family: 'Poppins', sans-serif;
+            color: #f1f1f1;
+            overflow: hidden; /* Mencegah seluruh halaman scroll */
+        }
+
+        /* Kontainer Utama */
+        .card {
+            background: #111;
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid #d4af37;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+            max-height: 85vh; /* Batas tinggi kartu agar tidak melebihi layar */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Judul Tetap (Sticky) */
+        h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            letter-spacing: 4px;
+            color: #d4af37;
+            text-transform: uppercase;
+        }
+
+        h2 {
+            margin: 5px 0 20px 0;
+            font-weight: 300;
+            font-size: 1rem;
+            color: #bdc3c7;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Area Konten yang Bisa di-Scroll */
+        .scroll-content {
+            overflow-y: auto;
+            padding-right: 10px;
+            text-align: left;
+        }
+
+        /* Kustomisasi Scrollbar */
+        .scroll-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .scroll-content::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .scroll-content::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 10px;
+        }
+
+        .line {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.2rem;
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .label {
+            color: #d4af37;
+            font-weight: bold;
+            min-width: 90px;
+            display: inline-block;
+        }
+
+        .notation {
+            color: #ffffff;
+            letter-spacing: 2px;
+            word-spacing: 5px;
+            flex: 1;
+        }
+
+        .gold-line {
+            height: 2px;
+            width: 50px;
+            background: #d4af37;
+            margin: 20px auto 0 auto;
+            flex-shrink: 0; /* Agar garis tidak hilang saat scroll */
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="card">
+        <h1>Cimpring</h1>
+        <h2>Tabuhan Tengah</h2>
+        
+        <div class="scroll-content">
+            <div class="line">
+                <span class="label">Rumus A</span>
+                <span class="notation">D TT TTDT TD</span>
+            </div>
+            <div class="line">
+                <span class="label">Rumus B</span>
+                <span class="notation">D TTT D TT TD</span>
+            </div>
+
+        </div>
+                <h2>Tabuhan naik</h2>
+        
+        <div class="scroll-content">
+            <div class="line">
+                <span class="label">Rumus A</span>
+                <span class="notation">DTT TTTT TDDD DDDD DD</span>
+            </div>
+            <div class="line">
+                <span class="label">Rumus B</span>
+                <span class="notation">D TTTT TTTD DDDD DDDD</span>
+            </div>
+
+        </div>
+                <h2>Tabuhan jeda</h2>
+        
+        <div class="scroll-content">
+            <div class="line">
+                <span class="label">Rumus A</span>
+                <span class="notation">D TTTT TD</span>
+            </div>
+            <div class="line">
+                <span class="label">Rumus B</span>
+                <span class="notation">D T T T TT TD</span>
+            </div>
+             
+        </div>
+        
+        <div class="gold-line"></div>
+        
+    </div>
+
+</body>
+</html>
