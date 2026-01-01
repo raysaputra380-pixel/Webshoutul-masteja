@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Loop Media Gallery</title>
+    <style>
+        :root { --y: #ffde00; --b: #000; --c: #1a1a1a; }
+        body { background: var(--b); color: white; font-family: sans-serif; margin: 0; padding: 20px; }
+        header { text-align: center; border-bottom: 3px solid var(--y); padding: 40px 0; margin-bottom: 30px; }
+        h1 { color: var(--y); margin: 0; letter-spacing: 5px; text-transform: uppercase; }
+        
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: var(--c); border-radius: 12px; overflow: hidden; border: 1px solid #333; transition: 0.3s; }
+        .card:hover { border-color: var(--y); transform: scale(1.02); }
+        
+        .media-container { width: 100%; height: 200px; background: #000; }
+        .card video { width: 100%; height: 100%; object-fit: cover; display: block; }
+        
+        .info { padding: 15px; text-align: center; }
+        .info span { font-size: 14px; font-weight: bold; color: var(--y); display: block; margin-bottom: 10px; }
+        
+        .btn-dl { display: block; background: var(--y); color: black; padding: 10px; border-radius: 5px; text-decoration: none; font-weight: bold; font-size: 12px; transition: 0.3s; }
+        .btn-dl:hover { background: #fff; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>KOLEKSI VIDEO</h1>
+    <p>Bisi dina hp mah pinuh maka kenangana disimpen didieu versi 3.4/shoutul/masteja</p>
+</header>
+
+<div class="gallery" id="gallery"></div>
+
+<script>
+    const gallery = document.getElementById('gallery');
+
+    // =========================================================
+    // PENGATURAN OTOMATIS
+    // =========================================================
+    const jumlahVideo = 11; // GANTI ANGKA INI SESUAI JUMLAH VIDEO ANDA
+    const formatFile = ".mp4"; // GANTI JIKA FORMATNYA .WEBM ATAU LAINNYA
+    const folderPath = ""; // ISI JIKA VIDEO ADA DI DALAM FOLDER (MISAL: "videos/")
+    
+    function loadGallery() {
+        gallery.innerHTML = '';
+        
+        for (let i = 1; i <= jumlahVideo; i++) {
+            const fileName = `vid${i}${formatFile}`;
+            const filePath = folderPath + fileName;
+            
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="media-container">
+                    <video src="${filePath}#t=1.0" preload="metadata" controls></video>
+                </div>
+                <div class="info">
+                    <span>Video Bagian ${i}</span>
+                    <a href="${filePath}" download="${fileName}" class="btn-dl">DOWNLOAD MP4</a>
+                </div>
+            `;
+            gallery.appendChild(card);
+        }
+    }
+
+    // Jalankan fungsi
+    loadGallery();
+    // Tambahkan ini di dalam fungsi loadGallery(), di bawah loop video
+const jumlahPoto = 1; // Ganti sesuai jumlah foto Anda
+for (let j = 1; j <= jumlahPoto; j++) {
+    const fileName = `poto${j}.jpg`; // Pastikan namanya poto1.jpg, poto2.jpg, dst
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `
+        <div class="media-container">
+            <img src="${fileName}" alt="Foto ${j}" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div class="info">
+            <span>Gambar Ke-${j}</span>
+            <a href="${fileName}" download="${fileName}" class="btn-dl">DOWNLOAD JPG</a>
+        </div>
+    `;
+    gallery.appendChild(card);
+}
+
+</script>
+
+</body>
+</html>
