@@ -180,6 +180,77 @@
     0% { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
 }
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Sembunyi di kiri */
+    width: 300px;
+    height: 100%;
+    background: var(--card-bg);
+    z-index: 2000;
+    transition: 0.4s;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+    border-right: 2px solid var(--primary);
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar.active {
+    left: 0; /* Muncul ke tengah */
+}
+
+.sidebar-header {
+    padding: 20px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sidebar-content {
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 12px 20px;
+    color: var(--text-gray);
+    text-decoration: none;
+    border-bottom: 1px solid #222;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.sidebar-link:hover {
+    background: #222;
+    color: var(--primary);
+    padding-left: 30px;
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    z-index: 1500;
+}
+
+#overlay.active {
+    display: block;
+}
+
+/* Penyesuaian agar konten bergeser sedikit jika di desktop (Opsional) */
+@media (min-width: 1200px) {
+    body.sidebar-open .container {
+        margin-left: 350px;
+        transition: 0.4s;
+    }
+}
 
     </style>
 </head>
@@ -193,12 +264,24 @@
         <div class="progress-fill"></div>
     </div>
 </div>
-
-
 <nav>
-    <h1>Shoutul Masteja</h1>
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 800px; margin: 0 auto 15px;">
+        <button id="menuBtn" onclick="toggleSidebar()" style="background: none; border: 1px solid var(--primary); color: var(--primary); padding: 5px 10px; border-radius: 5px; cursor: pointer;">☰ Menu</button>
+        <h1 style="margin-bottom: 0;">Shoutul Masteja</h1>
+        <div style="width: 50px;"></div> </div>
     <input type="text" id="searchInput" class="search-box" placeholder="Teangan Judul atawa Lirikna....." onkeyup="filterLirik()">
 </nav>
+
+<div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+        <h3>Daftar Isi</h3>
+        <button onclick="toggleSidebar()" style="color: var(--primary); background: none; border: none; font-size: 1.5rem;">&times;</button>
+    </div>
+    <div id="daftarIsi" class="sidebar-content">
+        </div>
+</div>
+
+<div id="overlay" onclick="toggleSidebar()"></div>
 
 <div class="container" id="lirikContainer">
 
@@ -461,6 +544,39 @@ Donya akhirat nemui bilahi</div>
 </div>
 </div>
     <div class="lirik-item">
+        <h2>Ya imamarusli</h2>
+        <div class="teks-arab">
+          يَا إِمَامَ الرُّسْلِ يَاسَنَدِي أَنْتَ بَابُ الله مُعْتَمَدِي<br>
+        فَبِدُنْيَايَ وَآخِرَتِي يَا رَسُوْلَ الله خُذْ بِيَدِي<br>
+        قَسَمًا بِالنَّجْمِ حِيْنَ هَوَى مَا الْمُعَافَى وَالسَّقِيْمُ سَوَا<br>
+         فَاخْلَعِ اْلكَوْنَيْنِ عَنْكَ سِوَى حُبِّ مَوْلَى اْلعُرْبِ وَالْعَجَمِ <br>
+ سَيِّدُالسَّادَاتِ مِنْ مُضَرْ غَوْثَ أَهْلِ الْبَدْوِ وَالْحَضَرْ<br>
+صَاحِبُ الآيَاتِ وَالسُّوَرِ  مَنْبَعُ اْلَاحْكَامِ وَالْحِكَمِ<br>
+ قَمَرٌ طَابَتْ سَرِيْرَتُهُ  وَسَجَايَاهُ وَسِيْرَتُهُ<br>
+  صَفْوَةُ الْبَارِي وَخِيْرَتُهُ عَدْلُ أَهْلِ الحَلِّ وَالْحَرَمِ <br>
+ مَارَأَتْ عَيْنٌ وَلَيْسَ تَرَى مِثْلَ طَهَ فِى اْلوَرَى بَشَرًا<br>
+ خَيْرُ مَنْ فَوْقَ الثَّرىَ أَثَراً طَاهِرُ الْاَخْلَاقِ وَالشِّيَمِ
+ </div>
+ </div>
+    <div class="lirik-item">
+        <h2>Doharudinul muayad</h2>
+        <div class="teks-arab">
+          
+ظَهَرَ الدِّينُ المُؤَيَّد بِظُهُورِالنَّبِى اَحمَد<span class="badge">2X</span><br>
+يَا هَنَانَــــــــا بِمُحَمَّد
+ذَلِكَ الفَضلُ مِنَ الله<br>
+خُصَّ بِالسَّبعِ المَثَانِى وَحَوى لُطفَ المَعَأنِى<span class ="badge">2X</span><br>
+مَالَهُ فِى الخَلقِ ثَانِى ، مَالَهُ فِى الخَلقِ ثَانِى
+وَعَلَيهِ اَنزَلَ الله<br>
+<span class ="badge">balik deui ka reff</span><br>
+صَلُّوا عَلى خَيرِ الاَنَام المُصطَفَى بَدرِالتَّمَام<span class ="badge">2x</span><br>
+صَلُّوا عَلَيهِ وَسَلِّمُوا ، صَلُّوا عَلَيهِ وَسَلِّمُوا
+يَشفَع لَنَأ يَومَ الزِّحَام<br>
+<span class ="badge">balik deui ka reff</span>
+</div>
+</div>
+
+    <div class="lirik-item">
         <h2>Adinu lana</h2>
         <div class="teks-arab">
           اَلدِّيْنُ لَنَا وَالْحَقًّ لَنَا، وَالْعدْلُ لَنَا والْكُلُّ لَنَا<br>
@@ -483,9 +599,10 @@ Donya akhirat nemui bilahi</div>
 </footer>
 
 <script>
-  window.addEventListener("load", function() {
+window.addEventListener("load", function() {
+    generateDaftarIsi(); // Buat daftar isi saat halaman dimuat
+    
     const loader = document.getElementById("loader-wrapper");
-    // Menunggu 2.5 detik agar animasi DUNG TAKTAK terlihat dulu
     setTimeout(() => {
         loader.style.opacity = "0";
         setTimeout(() => {
@@ -494,21 +611,50 @@ Donya akhirat nemui bilahi</div>
     }, 5000); 
 });
 
-    function filterLirik() {
-        let input = document.getElementById('searchInput').value.toLowerCase();
-        let items = document.getElementsByClassName('lirik-item');
+// Fungsi Buka Tutup Sidebar
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+    document.body.classList.toggle("sidebar-open");
+}
+
+// Fungsi Membuat Daftar Isi Otomatis
+function generateDaftarIsi() {
+    const items = document.getElementsByClassName('lirik-item');
+    const container = document.getElementById('daftarIsi');
+    
+    for (let i = 0; i < items.length; i++) {
+        let title = items[i].getElementsByTagName('h2')[0].innerText.replace('POPULER', '').replace('MUSTAJAB', '').replace('EDUKASI', '').replace('VIRAL', '').replace('AMPUH', '').trim();
         
-        for (let i = 0; i < items.length; i++) {
-            let title = items[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
-            let body = items[i].innerText.toLowerCase();
-            
-            if (title.includes(input) || body.includes(input)) {
-                items[i].style.display = "block";
-            } else {
-                items[i].style.display = "none";
-            }
+        // Beri ID pada tiap item lirik untuk navigasi
+        items[i].setAttribute('id', 'lirik-' + i);
+        
+        let link = document.createElement('a');
+        link.href = '#lirik-' + i;
+        link.className = 'sidebar-link';
+        link.innerText = title;
+        link.onclick = toggleSidebar; // Tutup sidebar setelah klik
+        
+        container.appendChild(link);
+    }
+}
+
+function filterLirik() {
+    let input = document.getElementById('searchInput').value.toLowerCase();
+    let items = document.getElementsByClassName('lirik-item');
+    
+    for (let i = 0; i < items.length; i++) {
+        let title = items[i].getElementsByTagName('h2')[0].innerText.toLowerCase();
+        let body = items[i].innerText.toLowerCase();
+        
+        if (title.includes(input) || body.includes(input)) {
+            items[i].style.display = "block";
+        } else {
+            items[i].style.display = "none";
         }
     }
+}
+
 </script>
 
 </body>
