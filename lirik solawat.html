@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arsip Lirik Sholawat Lengkap - Dark Gold</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+
     <style>
         :root {
             --primary: #FFD700;
@@ -18,7 +20,7 @@
         /* Navigation */
         nav {
             background: rgba(10, 10, 10, 0.95);
-            padding: 20px;
+            padding: 10px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -27,18 +29,18 @@
             backdrop-filter: blur(10px);
         }
 
-        nav h1 { color: var(--primary); font-size: 1.5rem; text-transform: uppercase; margin-bottom: 15px; letter-spacing: 2px; }
+        nav h1 { color: var(--primary); font-size: 1.2rem; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 2px; }
 
         .search-box {
             width: 100%;
             max-width: 500px;
-            padding: 12px 20px;
+            padding: 8px 20px;
             border-radius: 30px;
             border: 1px solid #333;
             background: #222;
             color: white;
             outline: none;
-            font-size: 1rem;
+            font-size: 0.9rem;
             transition: 0.3s;
         }
 
@@ -53,7 +55,7 @@
             margin-bottom: 40px;
             padding: 30px;
             border-left: 5px solid var(--primary);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,02,0,0.5);
             animation: fadeIn 0.5s ease;
         }
 
@@ -61,15 +63,16 @@
 
         .lirik-item h2 { color: var(--primary); margin-bottom: 25px; font-size: 1.8rem; text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
 
-        .teks-arab {
-            font-size: 2.2rem;
-            text-align: right;
-            direction: rtl;
-            line-height: 2.5;
-            margin-bottom: 25px;
-            font-family: 'Traditional Arabic', serif;
-            color: #ffffff;
-        }
+.teks-arab {
+    font-size: 1.8rem; /* Mengecil dari 2.2rem agar lebih ramping */
+    text-align: right;
+    direction: rtl;
+    line-height: 2; /* Dikurangi dari 2.5 agar jarak antar baris lebih rapat tapi tetap jelas */
+    margin-bottom: 20px;
+    font-family: 'Amiri', 'Traditional Arabic', serif; /* Menambahkan font Amiri sebagai alternatif yang lebih elegan */
+    color: #ffffff;
+    word-spacing: 4px; /* Memberi sedikit ruang antar kata agar lebih mudah dibaca */
+}
 
         .teks-latin {
             color: var(--primary);
@@ -93,8 +96,8 @@
         footer { text-align: center; padding: 50px; color: var(--text-gray); font-size: 0.8rem; background: #050505; border-top: 1px solid #222; }
 
         @media (max-width: 600px) { 
-            .teks-arab { font-size: 1.8rem; }
-            .lirik-item { padding: 20px; }
+            .teks-arab { font-size: 1.5rem; }
+            .lirik-item { padding: 15px; }
         }
         /* --- LOADING SCREEN STYLES --- */
 #loader-wrapper {
@@ -265,12 +268,14 @@
     </div>
 </div>
 <nav>
-    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 800px; margin: 0 auto 15px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; max-width: 800px; margin: 0 auto 5px;">
         <button id="menuBtn" onclick="toggleSidebar()" style="background: none; border: 1px solid var(--primary); color: var(--primary); padding: 5px 10px; border-radius: 5px; cursor: pointer;">☰ Menu</button>
         <h1 style="margin-bottom: 0;">Shoutul Masteja</h1>
-        <div style="width: 50px;"></div> </div>
+        <div style="width: 50px;"></div> 
+    </div>
     <input type="text" id="searchInput" class="search-box" placeholder="Teangan Judul atawa Lirikna....." onkeyup="filterLirik()">
 </nav>
+
 
 <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
@@ -460,20 +465,6 @@ Donya akhirat nemui bilahi</div>
     </div>
 
     <div class="lirik-item">
-        <h2>Rahmatun Lil'Alameen</h2>
-        <div class="teks-arab">
-            يَا مَنْ صَلَّيْتَ بِكُلِّ الْأَنْبِيَاء ، يَا مَنْ فِي قَلْبِكَ رَحْمَةٌ لِلنَّاسِ<br>
-            يَا مَنْ أَلَّفْتَ قُلُوبًا بِالْإِسْلَامِ ، يَا حَبِيبِي يَا شَفِيعِي يَا رَسُولَ اللهِ<br>
-            بِأَبِي أَنْتَ وَأُمِّي ، يَا خَيْرَ خَلْقِ اللهِ
-        </div>
-        <div class="teks-latin">
-            Ya man shollaita bikullil anbiya, Ya man fii qolbika rohmatun linnaas<br>
-            Ya man allafta quluban bil Islam, Ya habibi ya syafii'i ya Rasulallah<br>
-            Bi abi anta wa ummi, Ya khoiro kholqillah
-        </div>
-    </div>
-
-    <div class="lirik-item">
         <h2>Ya khoiro hadi</h2>
         <div class="teks-arab">
             يَا خَيْرَ هَادِی لِلْأَنَامِ تَسَاما * عَطْفاً عَلَی مَنْ ذَابَ فِيكَ غَرَاماً<br>
@@ -486,13 +477,17 @@ Donya akhirat nemui bilahi</div>
     <div class="lirik-item">
         <h2>Thohirul Qolbi</h2>
         <div class="teks-arab">
-            طَاهِرُ الْقَلْبِ نَقِيُّ ، ذَاكِرُ لِلّٰهِ مُعِينُ<br>
-            وَلَهُ خُلُقٌ زَكِيُّ ، جَاءَنَا بِالْحَقِّ الْمُبِينِ
+طَاهِرُ الْقَلْبِ نَقِيٌّ ذَاكِرُ لِـلّٰـه<br>
+اَلْمُصْطَفَی الصَّفِی صَلَّ عَلَيْهِ اللّٰـه<br>
+اَخْلَاقُهُ وَ صِفَاتُهُ سُبْحَانَ مَنْ سَوَّاه<br>
+هُوَ قُدْوَتِی وَ حَبِيْبِی وَ دَعْوَةُ النَّجَاة<br>
+يَا رَسُوْلَ اللّٰه يَا حَبِيْبَ اللّٰه<br>
+فَاكْتُبْ لَنَا نَلْقَاهُ نَدْعُوْكَ يَا رَبَّاه<br>
+مولاي صلّ وسلم دائما أبدا<br>
+على حبيبك خير الخلق كلهم<br>
+
         </div>
-        <div class="teks-latin">
-            Thohirul qolbi naqiyyu, Dzakirun lillahi mu'inu<br>
-            Wa lahu khuluqun zakiyyu, Ja'ana bil haqqil mubin
-        </div>
+
     </div>
 
     <div class="lirik-item">
