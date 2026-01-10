@@ -3,46 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat - Shoutul Masteja</title>
+    <title>Chat Group - Shoutul Masteja</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { box-sizing: border-box; }
-        body { background-color: #121212; color: #FFD700; font-family: 'Segoe UI', sans-serif; margin: 0; display: flex; flex-direction: column; height: 100vh; }
-        header { padding: 15px; text-align: center; border-bottom: 2px solid #FFD700; background: #1a1a1a; font-weight: bold; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #000000; font-family: 'Segoe UI', Tahoma, sans-serif; color: #FFD700; height: 100vh; display: flex; flex-direction: column; }
         
-        #chat-box { flex: 1; overflow-y: auto; padding: 15px; display: flex; flex-direction: column; gap: 10px; background: #121212; }
-        .msg { padding: 10px 15px; border-radius: 12px; max-width: 85%; font-size: 14px; position: relative; }
-        .mine { align-self: flex-end; background: #FFD700; color: #000; border-bottom-right-radius: 2px; }
-        .others { align-self: flex-start; background: #2c2c2c; color: #fff; border: 1px solid #FFD700; border-bottom-left-radius: 2px; }
-        .user-name { display: block; font-size: 10px; margin-bottom: 3px; font-weight: bold; opacity: 0.7; }
+        /* Header Black & Gold */
+        header { background: #1a1a1a; padding: 12px 15px; display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #FFD700; z-index: 10; }
+        .group-icon { width: 45px; height: 45px; background: #FFD700; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #000; font-size: 22px; box-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
+        .group-info h4 { font-size: 16px; color: #FFD700; text-transform: uppercase; letter-spacing: 1px; }
+        .group-info p { font-size: 11px; color: #aaa; }
 
-        #login-screen { position: fixed; inset: 0; background: rgba(18,18,18,0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 99; }
-        .btn-gold { background: #FFD700; color: #000; border: none; padding: 12px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+        /* Chat Area dengan pola WhatsApp */
+        #chat-box { flex: 1; overflow-y: auto; padding: 20px; background-color: #000000; background-image: radial-gradient(#1a1a1a 1px, transparent 1px); background-size: 20px 20px; display: flex; flex-direction: column; gap: 12px; }
         
-        #chat-form { padding: 10px; background: #1a1a1a; display: flex; gap: 8px; border-top: 1px solid #333; }
-        #input-msg { flex: 1; background: #222; border: 1px solid #FFD700; color: white; padding: 10px; border-radius: 20px; outline: none; }
+        /* Bubble Chat Style */
+        .msg { padding: 8px 12px; border-radius: 15px; max-width: 80%; font-size: 14px; position: relative; line-height: 1.5; }
+        .mine { align-self: flex-end; background: #FFD700; color: #000; border-bottom-right-radius: 2px; font-weight: 500; }
+        .others { align-self: flex-start; background: #1a1a1a; color: #FFD700; border: 1px solid #FFD700; border-bottom-left-radius: 2px; }
         
-        #error-log { color: #ff4444; font-size: 12px; margin-top: 15px; text-align: center; padding: 0 20px; }
+        .user-name { display: block; font-size: 11px; font-weight: bold; margin-bottom: 3px; color: #fff; text-shadow: 1px 1px 2px #000; }
+        .msg-time { font-size: 9px; opacity: 0.7; float: right; margin-top: 5px; margin-left: 10px; }
+
+        /* Animasi Login Berpeci */
+        #login-screen { position: fixed; inset: 0; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; text-align: center; }
+        .peci-anim { font-size: 70px; color: #FFD700; margin-bottom: 15px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        .btn-login { background: #FFD700; color: #000; border: none; padding: 14px 35px; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2); }
+        .btn-login:active { transform: scale(0.95); }
+
+        /* Input Bar di Bawah */
+        #chat-form { background: #111; padding: 12px; display: flex; align-items: center; gap: 10px; border-top: 1px solid #333; }
+        #input-msg { flex: 1; background: #222; border: 1px solid #FFD700; color: #fff; padding: 12px 18px; border-radius: 25px; outline: none; }
+        .btn-send { background: #FFD700; color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 18px; transition: 0.2s; }
     </style>
 </head>
 <body>
 
-    <header><i class="fas fa-comments"></i> SHOUTUL MASTEJA CHAT</header>
-
     <div id="login-screen">
-        <i class="fas fa-user-shield" style="font-size: 50px; margin-bottom: 15px;"></i>
-        <p>Gunakan akun Google untuk bergabung</p>
-        <button class="btn-gold" onclick="mulaiLogin()">
-            <i class="fab fa-google"></i> Masuk dengan Google
-        </button>
-        <div id="error-log"></div>
+        <div class="peci-anim"><i class="fas fa-user-tie"></i></div>
+        <h2 style="color: #FFD700; margin-bottom: 5px;">Info manggung</h2>
+        <p style="color: #666; margin-bottom: 25px;">Ruang info jeung komunikasi</p>
+        <button class="btn-login" onclick="mulaiLogin()"><i class="fab fa-google"></i> ASUP MAKE GOOGLE</button>
     </div>
+
+    <header>
+        <div class="group-icon"><i class="fas fa-moon"></i></div>
+        <div class="group-info">
+            <h4>Group Masteja</h4>
+            <p>Aktif • Hitam Emas</p>
+        </div>
+    </header>
 
     <div id="chat-box"></div>
 
     <form id="chat-form">
         <input type="text" id="input-msg" placeholder="Tulis pesan..." autocomplete="off">
-        <button type="submit" class="btn-gold" style="padding: 10px 15px;"><i class="fas fa-paper-plane"></i></button>
+        <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i></button>
     </form>
 
     <script type="module">
@@ -50,8 +68,8 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+        // GUNAKAN CONFIG FIREBASE KAMU DI SINI
+        const firebaseConfig = {
   apiKey: "AIzaSyBugJ590wIKNi3r1HHnyTyl4a1YJSSPhds",
   authDomain: "shoutulmastejachat.firebaseapp.com",
   projectId: "shoutulmastejachat",
@@ -59,27 +77,17 @@ const firebaseConfig = {
   messagingSenderId: "40109384180",
   appId: "1:40109384180:web:791ca0d9a012e3288699a1",
   measurementId: "G-QGQLC2BJBZ"
-};
+        };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // Fungsi Login
         window.mulaiLogin = () => {
-            const errorDiv = document.getElementById('error-log');
-            errorDiv.innerText = "Membuka jendela Google...";
-            
-            signInWithPopup(auth, provider)
-                .then(() => errorDiv.innerText = "")
-                .catch((error) => {
-                    console.error(error);
-                    errorDiv.innerText = "Gagal Login: " + error.message;
-                });
+            signInWithPopup(auth, provider).catch(err => alert("Gagal: " + err.message));
         };
 
-        // Pantau Status Login
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('login-screen').style.display = 'none';
@@ -89,37 +97,43 @@ const firebaseConfig = {
             }
         });
 
-        // Kirim Pesan
         document.getElementById('chat-form').onsubmit = async (e) => {
             e.preventDefault();
             const input = document.getElementById('input-msg');
-            if (!input.value.trim() || !auth.currentUser) return;
+            const text = input.value.trim();
+            if (!text || !auth.currentUser) return;
 
             try {
-                await addDoc(collection(db, "chats"), {
-                    text: input.value,
+                await addDoc(collection(db, "messages"), {
+                    text: text,
                     uid: auth.currentUser.uid,
                     name: auth.currentUser.displayName,
                     time: serverTimestamp()
                 });
                 input.value = "";
             } catch (err) {
-                alert("Gagal kirim: " + err.message);
+                alert("Gagal kirim! Cek tab Rules di Firestore.");
             }
         };
 
-        // Muat Pesan Realtime
         function muatPesan() {
-            const q = query(collection(db, "chats"), orderBy("time", "asc"), limit(50));
+            const q = query(collection(db, "messages"), orderBy("time", "asc"), limit(100));
             onSnapshot(q, (snapshot) => {
                 const box = document.getElementById('chat-box');
                 box.innerHTML = "";
                 snapshot.forEach((doc) => {
                     const d = doc.data();
                     const isMine = d.uid === auth.currentUser.uid;
+                    const date = d.time ? new Date(d.time.seconds * 1000) : new Date();
+                    const jam = date.getHours().toString().padStart(2, '0') + ":" + date.getMinutes().toString().padStart(2, '0');
+
                     const div = document.createElement('div');
                     div.className = `msg ${isMine ? 'mine' : 'others'}`;
-                    div.innerHTML = `<span class="user-name">${d.name}</span> ${d.text}`;
+                    div.innerHTML = `
+                        ${!isMine ? `<span class="user-name">${d.name}</span>` : ''}
+                        ${d.text}
+                        <span class="msg-time" style="color: ${isMine ? '#000' : '#888'}">${jam}</span>
+                    `;
                     box.appendChild(div);
                 });
                 box.scrollTop = box.scrollHeight;
