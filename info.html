@@ -7,21 +7,47 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { background: #000; font-family: 'Segoe UI', sans-serif; color: #FFD700; height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
-        
-        header { background: #1a1a1a; padding: 12px; display: flex; align-items: center; gap: 15px; border-bottom: 2px solid #FFD700; }
-        .group-icon { width: 40px; height: 40px; background: #FFD700; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #000; }
+/* Pastikan body memenuhi layar tanpa scroll luar */
+body { 
+    background: #000; 
+    font-family: sans-serif; 
+    height: 100vh; 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+}
 
-        #chat-box { flex: 1; overflow-y: auto; padding: 15px; background: #000; display: flex; flex-direction: column; gap: 10px; }
-        .msg { padding: 10px; border-radius: 12px; max-width: 85%; font-size: 14px; line-height: 1.5; white-space: pre-wrap; cursor: pointer; -webkit-tap-highlight-color: transparent; }
-        .mine { align-self: flex-end; background: #FFD700; color: #000; border-bottom-right-radius: 2px; }
-        .others { align-self: flex-start; background: #1a1a1a; color: #FFD700; border: 1px solid #FFD700; border-bottom-left-radius: 2px; }
-        
-        .tools-bar { background: #111; padding: 8px 15px; display: flex; gap: 10px; border-top: 1px solid #333; }
-        .btn-tool { background: #222; color: #FFD700; border: 1px solid #FFD700; padding: 6px 15px; border-radius: 20px; font-size: 12px; cursor: pointer; }
+/* Area Chat agar fleksibel dan tidak menabrak bar input */
+#chat-box { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    padding-bottom: 20px; /* Jarak aman bawah */
+}
 
-        #chat-form { background: #111; padding: 10px; display: flex; align-items: center; gap: 10px; }
-        #input-msg { 
+/* Container Tools (Tombol Pengumuman) */
+.tools-bar { 
+    background: #111; 
+    padding: 8px 15px; 
+    display: flex; 
+    gap: 10px; 
+    border-top: 1px solid #333;
+}
+
+/* Form Input agar pas di paling bawah */
+#chat-form { 
+    background: #1a1a1a; 
+    padding: 10px; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    padding-bottom: 20px; /* Tambahan padding untuk HP layar penuh */
+}
+
+#input-msg { 
     flex: 1; 
     background: #222; 
     border: 1px solid #FFD700; 
@@ -29,10 +55,12 @@
     padding: 12px; 
     border-radius: 20px; 
     outline: none; 
-    height: 50px; /* Pastikan tinggi ini ada agar kotak muncul */
+    height: 45px; /* Tinggi standar agar muncul sejak awal */
+    min-height: 45px;
+    max-height: 150px; /* Biar tidak menutupi seluruh layar saat template dipakai */
     resize: none; 
-    font-family: sans-serif;
 }
+
 
 
         #login-screen { position: fixed; inset: 0; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
@@ -89,12 +117,12 @@
 
 window.pakaiTemplate = () => {
     const input = document.getElementById('input-msg');
-    const template = "📢 *PENGUMUMAN SHOUTUL MASTEJA*\n\n📍 Alamat: \n💼 Job: \n🏢 Tempat: \n⏰ Waktu: \n\nHayu urang gembrung! 🙏";
-    
+    const template = "📢 *PENGUMUMAN SHOUTUL MASTEJA*\n\n📍 Alamat: \n💼 Job: \n🏢 Tempat: \n⏰ Waktu: \n\nhayu urang gembrung! 🙏";
     input.value = template;
-    input.style.height = "150px"; // Membesar saat pakai template
+    input.style.height = "140px"; // Ukuran pas untuk template
     input.focus();
 };
+
 
 
         onAuthStateChanged(auth, (user) => {
