@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Masteja Chat Admin</title>
+    <title>shoutul masteja info</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -21,8 +21,19 @@
         .btn-tool { background: #222; color: #FFD700; border: 1px solid #FFD700; padding: 6px 15px; border-radius: 20px; font-size: 12px; cursor: pointer; }
 
         #chat-form { background: #111; padding: 10px; display: flex; align-items: center; gap: 10px; }
-        #input-msg { flex: 1; background: #222; border: 1px solid #FFD700; color: #fff; padding: 12px; border-radius: 20px; outline: none; height: 45px; resize: none; }
-        .btn-send { background: #FFD700; color: #000; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; }
+        #input-msg { 
+    flex: 1; 
+    background: #222; 
+    border: 1px solid #FFD700; 
+    color: #fff; 
+    padding: 12px; 
+    border-radius: 20px; 
+    outline: none; 
+    height: 50px; /* Pastikan tinggi ini ada agar kotak muncul */
+    resize: none; 
+    font-family: sans-serif;
+}
+
 
         #login-screen { position: fixed; inset: 0; background: #000; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; }
         .peci-anim { font-size: 60px; color: #FFD700; margin-bottom: 20px; animation: bounce 2s infinite; }
@@ -40,7 +51,7 @@
 
     <header>
         <div class="group-icon"><i class="fas fa-crown"></i></div>
-        <div class="group-info"><h4>Masteja Group Admin</h4><p style="font-size:10px; color:#888;">Tekan lama pesan untuk menghapus</p></div>
+        <div class="group-info"><h4>shoutul masteja info</h4><p style="font-size:10px; color:#888;">pencet rada hebel jang hapus pesan</p></div>
     </header>
 
     <div id="chat-box"></div>
@@ -76,12 +87,15 @@
 
         window.mulaiLogin = () => signInWithPopup(auth, provider);
 
-        window.pakaiTemplate = () => {
-            const input = document.getElementById('input-msg');
-            input.value = "📢 *PENGUMUMAN SHOUTUL MASTEJA*\n\n📍 Alamat: \n💼 Job: \n🏢 Tempat: \n⏰ Waktu: \n\nhayu urang gembrung! 🙏";
-            input.style.height = "140px";
-            input.focus();
-        };
+window.pakaiTemplate = () => {
+    const input = document.getElementById('input-msg');
+    const template = "📢 *PENGUMUMAN SHOUTUL MASTEJA*\n\n📍 Alamat: \n💼 Job: \n🏢 Tempat: \n⏰ Waktu: \n\nHayu urang gembrung! 🙏";
+    
+    input.value = template;
+    input.style.height = "150px"; // Membesar saat pakai template
+    input.focus();
+};
+
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
