@@ -12,10 +12,10 @@
         body { 
             background: #000; 
             font-family: sans-serif; 
-            height: 100vh; /* Kunci tinggi tepat 100% layar */
+            min-height: 100vh; 
             display: flex; 
             flex-direction: column; 
-            overflow: hidden; /* Mencegah seluruh halaman geser */
+            /* Halaman sekarang bisa di-scroll ke bawah */
         }
 
         /* HEADER Tetap di Atas */
@@ -26,20 +26,21 @@
             align-items: center; 
             gap: 15px; 
             border-bottom: 2px solid #FFD700;
-            flex-shrink: 0; /* Jangan biarkan header mengecil */
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         .group-icon { width: 35px; height: 35px; background: #FFD700; border-radius: 50%; display: flex; justify-content: center; align-items: center; color: #000; }
 
-        /* AREA CHAT - Hanya ini yang bisa di-scroll */
+        /* AREA CHAT */
         #chat-box { 
-            flex: 1; /* Mengambil semua sisa ruang tengah */
-            overflow-y: auto; 
+            flex: 1; 
             padding: 15px; 
+            padding-bottom: 20px;
             display: flex; 
             flex-direction: column; 
             gap: 12px;
             background: #000;
-            -webkit-overflow-scrolling: touch; /* Scroll halus di iPhone/Chrome */
         }
 
         /* Gaya Gelembung Pesan */
@@ -47,52 +48,52 @@
         .mine { align-self: flex-end; background: #FFD700; color: #000; border-bottom-right-radius: 2px; }
         .others { align-self: flex-start; background: #1a1a1a; color: #FFD700; border: 1px solid #FFD700; border-bottom-left-radius: 2px; }
 
-/* AREA NAVIGASI BAWAH */
-.bottom-controls {
-    background: #1a1a1a;
-    padding: 10px 12px 25px 12px;
-    display: flex;
-    align-items: center; /* Menyeimbangkan tinggi elemen */
-    gap: 8px;
-    border-top: 1px solid #333;
-    flex-shrink: 0;
-}
+        /* AREA NAVIGASI BAWAH (Sudah disatukan & posisi naik sedikit) */
+        .bottom-controls {
+            background: #1a1a1a;
+            padding: 12px 12px 35px 12px; /* 35px untuk menaikkan posisi dari bawah layar */
+            display: flex;
+            align-items: flex-end; 
+            gap: 8px;
+            border-top: 1px solid #333;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
 
-/* Tombol Pengumuman Kecil */
-.btn-tool {
-    background: #222;
-    color: #FFD700;
-    border: 1px solid #FFD700;
-    width: 42px; /* Dibuat bulat agar serasi dengan tombol kirim */
-    height: 42px;
-    border-radius: 50%;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-}
+        .btn-tool {
+            background: #222;
+            color: #FFD700;
+            border: 1px solid #FFD700;
+            width: 42px; 
+            height: 42px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
 
-#chat-form { 
-    flex: 1; /* Form mengambil sisa ruang */
-    display: flex; 
-    gap: 8px;
-}
+        #chat-form { 
+            flex: 1; 
+            display: flex; 
+            gap: 8px;
+        }
 
-#input-msg { 
-    flex: 1; 
-    background: #222; 
-    border: 1px solid #FFD700; 
-    color: #fff; 
-    padding: 10px 15px; 
-    border-radius: 20px; 
-    outline: none; 
-    height: 42px; 
-    resize: none;
-    font-size: 14px;
-}
-
+        #input-msg { 
+            flex: 1; 
+            background: #222; 
+            border: 1px solid #FFD700; 
+            color: #fff; 
+            padding: 10px 15px; 
+            border-radius: 20px; 
+            outline: none; 
+            height: 42px; 
+            resize: none;
+            font-size: 14px;
+        }
 
         .btn-send { 
             background: #FFD700; 
@@ -131,33 +132,30 @@
 
     <div id="chat-box"></div>
 
+    <div class="bottom-controls">
+        <button type="button" class="btn-tool" onclick="pakaiTemplate()" title="Nyieun Pengumuman">
+            <i class="fas fa-bullhorn"></i>
+        </button>
 
-<div class="bottom-controls">
-    <button class="btn-tool" onclick="pakaiTemplate()" title="Nyieun Pengumuman">
-        <i class="fas fa-bullhorn"></i>
-    </button>
-
-    <form id="chat-form">
-        <textarea id="input-msg" placeholder="Tulis pesan..."></textarea>
-        <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i></button>
-    </form>
-</div>
-
+        <form id="chat-form">
+            <textarea id="input-msg" placeholder="Tulis pesan..."></textarea>
+            <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i></button>
+        </form>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, deleteDoc, doc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBugJ590wIKNi3r1HHnyTyl4a1YJSSPhds",
-  authDomain: "shoutulmastejachat.firebaseapp.com",
-  projectId: "shoutulmastejachat",
-  storageBucket: "shoutulmastejachat.firebasestorage.app",
-  messagingSenderId: "40109384180",
-  appId: "1:40109384180:web:791ca0d9a012e3288699a1",
-  measurementId: "G-QGQLC2BJBZ"
+        const firebaseConfig = {
+            apiKey: "AIzaSyBugJ590wIKNi3r1HHnyTyl4a1YJSSPhds",
+            authDomain: "shoutulmastejachat.firebaseapp.com",
+            projectId: "shoutulmastejachat",
+            storageBucket: "shoutulmastejachat.firebasestorage.app",
+            messagingSenderId: "40109384180",
+            appId: "1:40109384180:web:791ca0d9a012e3288699a1",
+            measurementId: "G-QGQLC2BJBZ"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -169,7 +167,7 @@ const firebaseConfig = {
 
         window.pakaiTemplate = () => {
             const input = document.getElementById('input-msg');
-            input.value = "📢 *PENGUMUMAN SHOUTUL MASTEJA*\n\n📍 Alamat: \n💼 Job: \n🏢 Tempat: \n⏰ Waktu: \n\nhayu urang gembrung! 🙏";
+            input.value = "📢 *PENGUMUMAN SHOUTUL MASTEJA*\n\n📍 Alamat: \n💼 Job: \n🏠 Tempat: \n⏰ Waktu: \n\nhayu urang gembrung! 🥁";
             input.style.height = "140px"; 
             input.focus();
         };
@@ -195,7 +193,7 @@ const firebaseConfig = {
                     time: serverTimestamp()
                 });
                 input.value = "";
-                input.style.height = "45px";
+                input.style.height = "42px";
             } catch (err) { alert(err.message); }
         };
 
@@ -223,7 +221,8 @@ const firebaseConfig = {
 
                     box.appendChild(div);
                 });
-                box.scrollTop = box.scrollHeight;
+                // Auto scroll ke bawah setiap ada pesan baru
+                window.scrollTo(0, document.body.scrollHeight);
             });
         }
     </script>
