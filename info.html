@@ -47,49 +47,52 @@
         .mine { align-self: flex-end; background: #FFD700; color: #000; border-bottom-right-radius: 2px; }
         .others { align-self: flex-start; background: #1a1a1a; color: #FFD700; border: 1px solid #FFD700; border-bottom-left-radius: 2px; }
 
-        /* AREA TOOLS (Tombol Pengumuman) */
-        .tools-bar { 
-            background: #111; 
-            padding: 8px 15px; 
-            border-top: 1px solid #333;
-            flex-shrink: 0;
-        }
-        .btn-tool {
-            background: #222;
-            color: #FFD700;
-            border: 1px solid #FFD700;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+/* AREA NAVIGASI BAWAH */
+.bottom-controls {
+    background: #1a1a1a;
+    padding: 10px 12px 25px 12px;
+    display: flex;
+    align-items: center; /* Menyeimbangkan tinggi elemen */
+    gap: 8px;
+    border-top: 1px solid #333;
+    flex-shrink: 0;
+}
 
-        /* FORM INPUT - Tetap di Paling Bawah */
-        #chat-form { 
-            background: #1a1a1a; 
-            padding: 8px 12px 25px 12px; /* Padding bawah extra untuk navigasi HP */
-            display: flex; 
-            align-items: flex-end; 
-            gap: 8px; 
-            border-top: 1px solid #333;
-            flex-shrink: 0;
-        }
+/* Tombol Pengumuman Kecil */
+.btn-tool {
+    background: #222;
+    color: #FFD700;
+    border: 1px solid #FFD700;
+    width: 42px; /* Dibuat bulat agar serasi dengan tombol kirim */
+    height: 42px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
 
-        #input-msg { 
-            flex: 1; 
-            background: #222; 
-            border: 1px solid #FFD700; 
-            color: #fff; 
-            padding: 10px 15px; 
-            border-radius: 20px; 
-            outline: none; 
-            height: 42px; 
-            min-height: 42px;
-            max-height: 120px; 
-            resize: none;
-            font-size: 14px;
-        }
+#chat-form { 
+    flex: 1; /* Form mengambil sisa ruang */
+    display: flex; 
+    gap: 8px;
+}
+
+#input-msg { 
+    flex: 1; 
+    background: #222; 
+    border: 1px solid #FFD700; 
+    color: #fff; 
+    padding: 10px 15px; 
+    border-radius: 20px; 
+    outline: none; 
+    height: 42px; 
+    resize: none;
+    font-size: 14px;
+}
+
 
         .btn-send { 
             background: #FFD700; 
@@ -128,14 +131,17 @@
 
     <div id="chat-box"></div>
 
-    <div class="tools-bar">
-        <button class="btn-tool" onclick="pakaiTemplate()"><i class="fas fa-bullhorn"></i> Nyieun Pengumuman</button>
-    </div>
+
+<div class="bottom-controls">
+    <button class="btn-tool" onclick="pakaiTemplate()" title="Nyieun Pengumuman">
+        <i class="fas fa-bullhorn"></i>
+    </button>
 
     <form id="chat-form">
         <textarea id="input-msg" placeholder="Tulis pesan..."></textarea>
         <button type="submit" class="btn-send"><i class="fas fa-paper-plane"></i></button>
     </form>
+</div>
 
 
     <script type="module">
@@ -143,14 +149,15 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, deleteDoc, doc, query, orderBy, limit, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBugJ590wIKNi3r1HHnyTyl4a1YJSSPhds",
-            authDomain: "shoutulmastejachat.firebaseapp.com",
-            projectId: "shoutulmastejachat",
-            storageBucket: "shoutulmastejachat.firebasestorage.app",
-            messagingSenderId: "40109384180",
-            appId: "1:40109384180:web:791ca0d9a012e3288699a1",
-            measurementId: "G-QGQLC2BJBZ"
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBugJ590wIKNi3r1HHnyTyl4a1YJSSPhds",
+  authDomain: "shoutulmastejachat.firebaseapp.com",
+  projectId: "shoutulmastejachat",
+  storageBucket: "shoutulmastejachat.firebasestorage.app",
+  messagingSenderId: "40109384180",
+  appId: "1:40109384180:web:791ca0d9a012e3288699a1",
+  measurementId: "G-QGQLC2BJBZ"
         };
 
         const app = initializeApp(firebaseConfig);
